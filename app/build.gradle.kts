@@ -73,6 +73,9 @@ dependencies {
     // Glide
     implementation(Libs.GLIDE)
 
+    // Lottie
+    implementation(Libs.LOTTIE)
+
     // Timber
     implementation(Libs.TIMBER)
 

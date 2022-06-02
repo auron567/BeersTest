@@ -9,6 +9,7 @@ object Versions {
     const val RETROFIT = "2.9.0"
     const val OK_HTTP = "4.9.3"
     const val GLIDE = "4.13.2"
+    const val LOTTIE = "5.2.0"
     const val TIMBER = "5.0.1"
     const val JUNIT = "4.13.2"
     const val MOCKK = "1.12.4"
@@ -48,6 +49,7 @@ object Libs {
     const val RETROFIT_GSON = "com.squareup.retrofit2:converter-gson:${Versions.RETROFIT}"
     const val OK_HTTP_LOGGING = "com.squareup.okhttp3:logging-interceptor:${Versions.OK_HTTP}"
     const val GLIDE = "com.github.bumptech.glide:glide:${Versions.GLIDE}"
+    const val LOTTIE = "com.airbnb.android:lottie:${Versions.LOTTIE}"
     const val TIMBER = "com.jakewharton.timber:timber:${Versions.TIMBER}"
 }
 
