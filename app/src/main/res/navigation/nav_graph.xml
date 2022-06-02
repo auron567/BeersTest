@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/beer_list_fragment">
+
+    <fragment
+        android:id="@+id/beer_list_fragment"
+        android:name="com.example.beerstest.presentation.beerlist.BeerListFragment"
+        android:label="BeerListFragment"
+        tools:layout="@layout/fragment_beer_list">
+        <action
+            android:id="@+id/action_beer_list_fragment_to_beer_detail_fragment"
+            app:destination="@id/beer_detail_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/stay"
+            app:popEnterAnim="@anim/stay"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/beer_detail_fragment"
+        android:name="com.example.beerstest.presentation.beerdetail.BeerDetailFragment"
+        android:label="BeerDetailFragment"
+        tools:layout="@layout/fragment_beer_detail">
+        <argument
+            android:name="beer"
+            app:argType="com.example.beerstest.domain.model.BeerEntity" />
+    </fragment>
+
+</navigation>
