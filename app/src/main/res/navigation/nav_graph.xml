@@ -33,6 +33,9 @@
             app:exitAnim="@anim/stay"
             app:popEnterAnim="@anim/stay"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_beer_list_fragment_to_beer_search_bottom_sheet"
+            app:destination="@id/beer_search_bottom_sheet" />
     </fragment>
 
     <fragment
@@ -44,5 +47,11 @@
             android:name="beer"
             app:argType="com.example.beerstest.domain.model.BeerEntity" />
     </fragment>
+
+    <dialog
+        android:id="@+id/beer_search_bottom_sheet"
+        android:name="com.example.beerstest.presentation.beersearch.BeerSearchBottomSheet"
+        android:label="BeerSearchBottomSheet"
+        tools:layout="@layout/bottom_sheet_beer_search" />
 
 </navigation>

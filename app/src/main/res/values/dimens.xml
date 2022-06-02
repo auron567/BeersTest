@@ -2,4 +2,5 @@
 <resources>
     <dimen name="beer_card_corner_radius">8dp</dimen>
     <dimen name="beer_card_elevation">0dp</dimen>
+    <dimen name="bottom_sheet_corner_radius">16dp</dimen>
 </resources>

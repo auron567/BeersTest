@@ -32,6 +32,7 @@ class BeerListFragment :
     override fun setupUi() {
         setupToolbar()
         setupBeerRecyclerView()
+        setupSearchButton()
     }
 
     private fun setupToolbar() {
@@ -54,6 +55,12 @@ class BeerListFragment :
         }
     }
 
+    private fun setupSearchButton() {
+        binding?.btnSearch?.setOnClickListener {
+            viewModel.launchEvent(BeerListContract.Event.OnSearchClicked)
+        }
+    }
+
     override fun handleState(state: BeerListContract.State) {
         binding?.apply {
             // Beer list
@@ -68,6 +75,7 @@ class BeerListFragment :
     override fun handleEffect(effect: BeerListContract.Effect) {
         when (effect) {
             is BeerListContract.Effect.GoToBeerDetail -> goToBeerDetail(effect.beer)
+            is BeerListContract.Effect.GoToBeerSearch -> goToBeerSearch()
             is BeerListContract.Effect.ShowErrorSnackbar -> showErrorSnackBar()
         }
     }
@@ -82,6 +90,11 @@ class BeerListFragment :
 
     private fun goToBeerDetail(beer: BeerEntity) {
         val direction = BeerListFragmentDirections.actionBeerListFragmentToBeerDetailFragment(beer)
+        findNavController().navigate(direction)
+    }
+
+    private fun goToBeerSearch() {
+        val direction = BeerListFragmentDirections.actionBeerListFragmentToBeerSearchBottomSheet()
         findNavController().navigate(direction)
     }
 

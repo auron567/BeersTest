@@ -48,11 +48,16 @@ class BeerListViewModel @Inject constructor(
     override fun handleEvent(event: BeerListContract.Event) {
         when (event) {
             is BeerListContract.Event.OnBeerClicked -> onBeerClicked(event.beer)
+            is BeerListContract.Event.OnSearchClicked -> onSearchClicked()
             is BeerListContract.Event.OnLoadMoreBeers -> getBeers()
         }
     }
 
     private fun onBeerClicked(beer: BeerEntity) {
         launchEffect { BeerListContract.Effect.GoToBeerDetail(beer) }
+    }
+
+    private fun onSearchClicked() {
+        launchEffect { BeerListContract.Effect.GoToBeerSearch }
     }
 }

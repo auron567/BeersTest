@@ -1,4 +1,4 @@
-package com.example.beerstest.presentation.main
+package com.example.beerstest.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

@@ -1,5 +1,4 @@
 <resources>
-    <!-- Base application theme -->
     <style name="Theme.BeersTest" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color -->
         <item name="colorPrimary">@color/amber</item>
@@ -12,5 +11,21 @@
         <!-- Status bar color -->
         <item name="android:statusBarColor">?android:colorBackground</item>
         <item name="android:windowLightStatusBar">true</item>
+        <!-- Others -->
+        <item name="bottomSheetDialogTheme">@style/Theme.BeersTest.BottomSheetDialog</item>
+    </style>
+
+    <style name="Theme.BeersTest.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Theme.BeersTest.BottomSheet</item>
+    </style>
+
+    <style name="Theme.BeersTest.BottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearance.BeersTest.BottomSheet</item>
+    </style>
+
+    <style name="ShapeAppearance.BeersTest.BottomSheet" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">@dimen/bottom_sheet_corner_radius</item>
+        <item name="cornerSizeTopLeft">@dimen/bottom_sheet_corner_radius</item>
     </style>
 </resources>

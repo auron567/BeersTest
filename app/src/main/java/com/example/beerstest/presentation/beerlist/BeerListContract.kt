@@ -9,11 +9,13 @@ class BeerListContract {
 
     sealed class Event : ViewEvent {
         class OnBeerClicked(val beer: BeerEntity) : Event()
+        object OnSearchClicked : Event()
         object OnLoadMoreBeers : Event()
     }
 
     sealed class Effect : ViewEffect {
         class GoToBeerDetail(val beer: BeerEntity) : Effect()
+        object GoToBeerSearch : Effect()
         object ShowErrorSnackbar : Effect()
     }
 
