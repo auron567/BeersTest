@@ -4,7 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.beerstest.core.extensions.load
+import coil.load
+import com.example.beerstest.R
 import com.example.beerstest.databinding.ItemBeerBinding
 import com.example.beerstest.databinding.ItemLoaderBinding
 import com.example.beerstest.domain.model.BeerEntity
@@ -78,8 +79,13 @@ class BeerAdapter(
                     onBeerClicked(beer)
                 }
 
-                // Set image & name
-                ivBeer.load(beer.imageUrl)
+                // Set image
+                ivBeer.load(beer.imageUrl) {
+                    placeholder(R.drawable.ic_beer)
+                    error(R.drawable.ic_beer)
+                }
+
+                // Set name
                 tvName.text = beer.name
             }
         }

@@ -3,9 +3,9 @@ package com.example.beerstest.presentation.beerdetail
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import coil.load
 import com.example.beerstest.R
 import com.example.beerstest.core.base.BaseFragment
-import com.example.beerstest.core.extensions.load
 import com.example.beerstest.core.extensions.setSupportActionBar
 import com.example.beerstest.core.extensions.supportActionBar
 import com.example.beerstest.core.viewbinding.viewBinding
@@ -58,7 +58,10 @@ class BeerDetailFragment :
     private fun renderBeer(beer: BeerEntity) {
         binding?.apply {
             // Image
-            ivBeer.load(beer.imageUrl)
+            ivBeer.load(beer.imageUrl) {
+                placeholder(R.drawable.ic_beer)
+                error(R.drawable.ic_beer)
+            }
 
             // Name & year
             tvName.text = getString(R.string.template_name, beer.name, beer.productionYear)

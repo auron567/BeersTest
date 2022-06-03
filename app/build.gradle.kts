@@ -70,8 +70,8 @@ dependencies {
     implementation(Libs.RETROFIT_GSON)
     implementation(Libs.OK_HTTP_LOGGING)
 
-    // Glide
-    implementation(Libs.GLIDE)
+    // Coil
+    implementation(Libs.COIL)
 
     // Lottie
     implementation(Libs.LOTTIE)
