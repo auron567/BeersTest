@@ -1,7 +1,9 @@
 package com.example.beerstest.presentation.beerlist
 
+import android.os.Bundle
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -14,6 +16,7 @@ import com.example.beerstest.databinding.FragmentBeerListBinding
 import com.example.beerstest.domain.model.BeerEntity
 import com.example.beerstest.presentation.beerlist.adapter.BeerAdapter
 import com.example.beerstest.presentation.beerlist.adapter.PaginationListener
+import com.example.beerstest.presentation.beersearch.BeerSearchBottomSheet
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -28,6 +31,14 @@ class BeerListFragment :
     private val beerAdapter = BeerAdapter(::onBeerClicked)
 
     private val paginationListener = PaginationListener(::onLoadMoreBeers)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        setFragmentResultListener(BeerSearchBottomSheet.REQUEST_KEY) { _, bundle ->
+            handleFragmentResult(bundle)
+        }
+    }
 
     override fun setupUi() {
         setupToolbar()
@@ -52,6 +63,9 @@ class BeerListFragment :
 
             // Set adapter
             adapter = beerAdapter
+
+            // Set pagination
+            addOnScrollListener(paginationListener)
         }
     }
 
@@ -88,6 +102,12 @@ class BeerListFragment :
         viewModel.launchEvent(BeerListContract.Event.OnLoadMoreBeers)
     }
 
+    private fun handleFragmentResult(bundle: Bundle) {
+        bundle.getString(BeerSearchBottomSheet.NAME_KEY)?.let { beerName ->
+            viewModel.launchEvent(BeerListContract.Event.OnBeerSearched(beerName))
+        }
+    }
+
     private fun goToBeerDetail(beer: BeerEntity) {
         val direction = BeerListFragmentDirections.actionBeerListFragmentToBeerDetailFragment(beer)
         findNavController().navigate(direction)
@@ -105,12 +125,10 @@ class BeerListFragment :
     }
 
     override fun showLoader() {
-        binding?.rvBeer?.removeOnScrollListener(paginationListener)
         beerAdapter.showLoadingItem()
     }
 
     override fun hideLoader() {
-        binding?.rvBeer?.addOnScrollListener(paginationListener)
         beerAdapter.hideLoadingItem()
     }
 }

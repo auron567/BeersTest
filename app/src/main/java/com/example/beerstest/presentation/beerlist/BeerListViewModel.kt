@@ -10,6 +10,7 @@ import javax.inject.Inject
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 @HiltViewModel
 class BeerListViewModel @Inject constructor(
@@ -17,7 +18,8 @@ class BeerListViewModel @Inject constructor(
     private val dispatchers: DispatcherProvider
 ) : BaseViewModel<BeerListContract.Event, BeerListContract.State, BeerListContract.Effect>() {
 
-    private val exceptionHandler = CoroutineExceptionHandler { _, _ ->
+    private val exceptionHandler = CoroutineExceptionHandler { _, throwable: Throwable ->
+        Timber.e(throwable)
         hideLoader()
         launchEffect { BeerListContract.Effect.ShowErrorSnackbar }
     }
@@ -48,9 +50,14 @@ class BeerListViewModel @Inject constructor(
     override fun handleEvent(event: BeerListContract.Event) {
         when (event) {
             is BeerListContract.Event.OnBeerClicked -> onBeerClicked(event.beer)
+            is BeerListContract.Event.OnBeerSearched -> onBeerSearched(event.beerName)
             is BeerListContract.Event.OnSearchClicked -> onSearchClicked()
             is BeerListContract.Event.OnLoadMoreBeers -> getBeers()
         }
+    }
+
+    private fun onBeerSearched(beerName: String) {
+        // TODO: make network call
     }
 
     private fun onBeerClicked(beer: BeerEntity) {
