@@ -11,5 +11,22 @@ class BeerSearchViewModel @Inject constructor() :
     override fun createInitialState() = BeerSearchContract.initState()
 
     override fun handleEvent(event: BeerSearchContract.Event) {
+        when (event) {
+            is BeerSearchContract.Event.OnNameChanged -> onNameChanged(event.name)
+            is BeerSearchContract.Event.OnSearchClicked -> onSearchClicked()
+        }
+    }
+
+    private fun onNameChanged(name: String) {
+        setState {
+            copy(
+                beerName = name,
+                isButtonEnabled = name.isNotBlank()
+            )
+        }
+    }
+
+    private fun onSearchClicked() {
+        launchEffect { BeerSearchContract.Effect.BackToBeerList(currentState.beerName) }
     }
 }

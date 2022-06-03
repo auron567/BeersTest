@@ -6,13 +6,24 @@ import com.example.beerstest.core.base.ViewState
 
 class BeerSearchContract {
 
-    sealed class Event : ViewEvent
+    sealed class Event : ViewEvent {
+        class OnNameChanged(val name: String) : Event()
+        object OnSearchClicked : Event()
+    }
 
-    sealed class Effect : ViewEffect
+    sealed class Effect : ViewEffect {
+        class BackToBeerList(val beerName: String) : Effect()
+    }
 
-    class State : ViewState
+    data class State(
+        val beerName: String,
+        val isButtonEnabled: Boolean
+    ) : ViewState
 
     companion object {
-        fun initState() = State()
+        fun initState() = State(
+            beerName = "",
+            isButtonEnabled = false
+        )
     }
 }

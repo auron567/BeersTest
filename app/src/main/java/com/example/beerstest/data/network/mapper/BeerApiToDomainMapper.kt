@@ -12,7 +12,7 @@ class BeerApiToDomainMapper @Inject constructor() : ApiToDomainMapper<BeerRespon
         name = input.name,
         slogan = input.tagline,
         description = input.description,
-        imageUrl = input.imageUrl,
+        imageUrl = input.imageUrl.orEmpty(),
         productionYear = input.firstBrewed.takeLast(YEAR_LENGTH)
     )
 }

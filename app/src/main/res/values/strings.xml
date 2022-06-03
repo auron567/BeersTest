@@ -3,6 +3,9 @@
 
     <string name="beers">Beers</string>
     <string name="no_beers">No beers!</string>
+    <string name="find_beer">Find beer</string>
+    <string name="hint_name">Name</string>
+    <string name="search">Search</string>
     <string name="error_occurred">Sorry, an error occurred.</string>
 
     <string name="template_name">"%1$s (%2$s)"</string>
