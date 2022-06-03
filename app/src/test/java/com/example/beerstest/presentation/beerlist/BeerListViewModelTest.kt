@@ -36,7 +36,7 @@ class BeerListViewModelTest {
     fun `view model set state properly when get beers`() = runTest {
         // Stub use case
         val mockBeers = listOf(createBeerEntity(), createBeerEntity())
-        coEvery { getBeersUseCase.invoke() } returns mockBeers
+        coEvery { getBeersUseCase.invoke(any(), any()) } returns mockBeers
 
         // Init view model
         val viewModel = setupViewModel()
@@ -51,7 +51,7 @@ class BeerListViewModelTest {
     @Test
     fun `view model set state properly when beer list is empty`() = runTest {
         // Stub use case
-        coEvery { getBeersUseCase.invoke() } returns emptyList()
+        coEvery { getBeersUseCase.invoke(any(), any()) } returns emptyList()
 
         // Init view model
         val viewModel = setupViewModel()
@@ -66,7 +66,7 @@ class BeerListViewModelTest {
     @Test
     fun `view model launch proper effect when exception is thrown`() = runTest {
         // Stub use case
-        coEvery { getBeersUseCase.invoke() } throws NetworkError.ServiceUnavailable()
+        coEvery { getBeersUseCase.invoke(any(), any()) } throws NetworkError.ServiceUnavailable()
 
         // Init view model
         val viewModel = setupViewModel()

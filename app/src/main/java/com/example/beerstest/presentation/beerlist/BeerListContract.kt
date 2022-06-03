@@ -9,7 +9,7 @@ class BeerListContract {
 
     sealed class Event : ViewEvent {
         class OnBeerClicked(val beer: BeerEntity) : Event()
-        class OnBeerSearched(val beerName: String) : Event()
+        class OnBeerSearched(val name: String) : Event()
         object OnSearchClicked : Event()
         object OnLoadMoreBeers : Event()
     }

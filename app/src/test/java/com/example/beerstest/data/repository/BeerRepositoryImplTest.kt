@@ -57,7 +57,10 @@ class BeerRepositoryImplTest {
         every { beerMapper.toDomain(beerApiSecond) } returns beerDomainSecond
 
         // Call repository
-        val beers = repository.getBeers()
+        val beers = repository.getBeers(
+            isStart = true,
+            filterName = null
+        )
 
         // Assertion
         beers.shouldContainExactly(beersDomain)
@@ -70,7 +73,10 @@ class BeerRepositoryImplTest {
         coEvery { beerService.getBeers(any(), any()) } returns response
 
         // Call repository
-        val beers = repository.getBeers()
+        val beers = repository.getBeers(
+            isStart = true,
+            filterName = null
+        )
 
         // Assertion
         beers.shouldBeEmpty()
@@ -83,7 +89,10 @@ class BeerRepositoryImplTest {
         coEvery { beerService.getBeers(any(), any()) } returns response
 
         // Call repository
-        val beers = repository.getBeers()
+        val beers = repository.getBeers(
+            isStart = true,
+            filterName = null
+        )
 
         // Assertion
         beers.shouldBeEmpty()
@@ -98,7 +107,10 @@ class BeerRepositoryImplTest {
             coEvery { beerService.getBeers(any(), any()) } returns response
 
             // Call repository
-            repository.getBeers()
+            repository.getBeers(
+                isStart = true,
+                filterName = null
+            )
         }
     }
 
@@ -109,11 +121,17 @@ class BeerRepositoryImplTest {
         coEvery { beerService.getBeers(any(), any()) } returns response
 
         // Call repository
-        repository.getBeers()
+        repository.getBeers(
+            isStart = true,
+            filterName = null
+        )
 
         // Verify
         coVerify {
-            beerService.getBeers(page = 1)
+            beerService.getBeers(
+                beerName = any(),
+                page = 1
+            )
         }
     }
 
@@ -126,13 +144,19 @@ class BeerRepositoryImplTest {
         // Call repository
         val range = (1..4)
         repeat(range.count()) {
-            repository.getBeers()
+            repository.getBeers(
+                isStart = false,
+                filterName = null
+            )
         }
 
         // Verify
         coVerifyOrder {
             range.forEach { index ->
-                beerService.getBeers(page = index)
+                beerService.getBeers(
+                    beerName = any(),
+                    page = index
+                )
             }
         }
     }

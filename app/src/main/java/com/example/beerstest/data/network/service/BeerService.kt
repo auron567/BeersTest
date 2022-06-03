@@ -9,6 +9,7 @@ interface BeerService {
 
     @GET("beers")
     suspend fun getBeers(
+        @Query("beer_name") beerName: String?,
         @Query("page") page: Int,
         @Query("per_page") pageSize: Int = PAGE_SIZE,
     ): Response<List<BeerResponse>>

@@ -18,6 +18,10 @@ class BeerListViewModel @Inject constructor(
     private val dispatchers: DispatcherProvider
 ) : BaseViewModel<BeerListContract.Event, BeerListContract.State, BeerListContract.Effect>() {
 
+    // Filter to search for all beers matching name
+    // If null, no filter is applied
+    private var filterName: String? = null
+
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable: Throwable ->
         Timber.e(throwable)
         hideLoader()
@@ -27,14 +31,14 @@ class BeerListViewModel @Inject constructor(
     override fun createInitialState() = BeerListContract.initState()
 
     init {
-        getBeers()
+        getBeers(isStart = true)
     }
 
-    private fun getBeers() {
+    private fun getBeers(isStart: Boolean) {
         viewModelScope.launch(exceptionHandler) {
             showLoader()
             val beers = withContext(dispatchers.io) {
-                getBeersUseCase()
+                getBeersUseCase(isStart, filterName)
             }
             hideLoader()
 
@@ -50,14 +54,18 @@ class BeerListViewModel @Inject constructor(
     override fun handleEvent(event: BeerListContract.Event) {
         when (event) {
             is BeerListContract.Event.OnBeerClicked -> onBeerClicked(event.beer)
-            is BeerListContract.Event.OnBeerSearched -> onBeerSearched(event.beerName)
+            is BeerListContract.Event.OnBeerSearched -> onBeerSearched(event.name)
+            is BeerListContract.Event.OnLoadMoreBeers -> getBeers(isStart = false)
             is BeerListContract.Event.OnSearchClicked -> onSearchClicked()
-            is BeerListContract.Event.OnLoadMoreBeers -> getBeers()
         }
     }
 
-    private fun onBeerSearched(beerName: String) {
-        // TODO: make network call
+    private fun onBeerSearched(name: String) {
+        // Update filter name
+        filterName = name
+
+        // Load new beer list
+        getBeers(isStart = true)
     }
 
     private fun onBeerClicked(beer: BeerEntity) {

@@ -17,8 +17,17 @@ class BeerRepositoryImpl @Inject constructor(
 
     private var pageCount: Int = FIRST_PAGE
 
-    override suspend fun getBeers(): List<BeerEntity> {
-        return beerService.getBeers(page = pageCount).let { response ->
+    override suspend fun getBeers(isStart: Boolean, filterName: String?): List<BeerEntity> {
+        // Clear current list and reset first page
+        if (isStart) {
+            cachedData.clear()
+            pageCount = FIRST_PAGE
+        }
+
+        return beerService.getBeers(
+            beerName = filterName,
+            page = pageCount
+        ).let { response ->
             if (response.isSuccessful) {
                 handleSuccessfulResponse(response.body())
             } else {

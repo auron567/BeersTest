@@ -7,5 +7,6 @@ import javax.inject.Inject
 class GetBeersUseCase @Inject constructor(
     private val beerRepository: BeerRepository
 ) {
-    suspend operator fun invoke(): List<BeerEntity> = beerRepository.getBeers()
+    suspend operator fun invoke(isStart: Boolean, filterName: String?): List<BeerEntity> =
+        beerRepository.getBeers(isStart, filterName)
 }
