@@ -115,6 +115,28 @@ class BeerRepositoryImplTest {
     }
 
     @Test
+    fun `repository call service with proper beer name argument`() = runTest {
+        // Stub service
+        val response = Response.success<List<BeerResponse>>(emptyList())
+        coEvery { beerService.getBeers(any(), any()) } returns response
+
+        // Call repository
+        val beerName = "Buzz"
+        repository.getBeers(
+            isStart = true,
+            filterName = beerName
+        )
+
+        // Verify
+        coVerify {
+            beerService.getBeers(
+                beerName = beerName,
+                page = any()
+            )
+        }
+    }
+
+    @Test
     fun `repository call service with first page on start`() = runTest {
         // Stub service
         val response = Response.success<List<BeerResponse>>(emptyList())

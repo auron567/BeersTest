@@ -13,6 +13,7 @@ import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.types.shouldBeTypeOf
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
@@ -64,6 +65,55 @@ class BeerListViewModelTest {
     }
 
     @Test
+    fun `view model call use case with proper arguments on init`() = runTest {
+        // Init view model
+        setupViewModel()
+
+        // Verify
+        coVerify {
+            getBeersUseCase.invoke(
+                isStart = true,
+                filterName = null
+            )
+        }
+    }
+
+    @Test
+    fun `view model call use case with proper arguments when beer is searched`() = runTest {
+        // Init view model
+        val viewModel = setupViewModel()
+
+        // Call view model
+        val beerName = "Buzz"
+        viewModel.launchEvent(BeerListContract.Event.OnBeerSearched(beerName))
+
+        // Verify
+        coVerify {
+            getBeersUseCase.invoke(
+                isStart = true,
+                filterName = beerName
+            )
+        }
+    }
+
+    @Test
+    fun `view model call use case with proper arguments when more beers are loaded`() = runTest {
+        // Init view model
+        val viewModel = setupViewModel()
+
+        // Call view model
+        viewModel.launchEvent(BeerListContract.Event.OnLoadMoreBeers)
+
+        // Verify
+        coVerify {
+            getBeersUseCase.invoke(
+                isStart = false,
+                filterName = null
+            )
+        }
+    }
+
+    @Test
     fun `view model launch proper effect when exception is thrown`() = runTest {
         // Stub use case
         coEvery { getBeersUseCase.invoke(any(), any()) } throws NetworkError.ServiceUnavailable()
@@ -74,6 +124,20 @@ class BeerListViewModelTest {
         // Assertion
         viewModel.effect.test {
             awaitItem().shouldBeTypeOf<BeerListContract.Effect.ShowErrorSnackbar>()
+        }
+    }
+
+    @Test
+    fun `view model launch proper effect when search is clicked`() = runTest {
+        // Init view model
+        val viewModel = setupViewModel()
+
+        // Call view model
+        viewModel.launchEvent(BeerListContract.Event.OnSearchClicked)
+
+        // Assertion
+        viewModel.effect.test {
+            awaitItem().shouldBeTypeOf<BeerListContract.Effect.GoToBeerSearch>()
         }
     }
 
