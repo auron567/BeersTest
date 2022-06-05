@@ -47,11 +47,15 @@ android {
 }
 
 dependencies {
-    // UI and Appcompat
-    implementation(Libs.CORE_KTX)
+    // Main
     implementation(Libs.APP_COMPAT)
+    implementation(Libs.CORE_KTX)
+    implementation(Libs.CORE_SPLASH_SCREEN)
+
+    // UI
     implementation(Libs.CONSTRAINT_LAYOUT)
     implementation(Libs.MATERIAL)
+    implementation(Libs.COIL)
 
     // Coroutines
     implementation(Libs.COROUTINES_CORE)
@@ -69,12 +73,6 @@ dependencies {
     implementation(Libs.RETROFIT)
     implementation(Libs.RETROFIT_GSON)
     implementation(Libs.OK_HTTP_LOGGING)
-
-    // Coil
-    implementation(Libs.COIL)
-
-    // Lottie
-    implementation(Libs.LOTTIE)
 
     // Timber
     implementation(Libs.TIMBER)

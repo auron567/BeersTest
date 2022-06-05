@@ -4,5 +4,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="amber">#FFC107</color>
 
+    <color name="ic_launcher_background">#E7911A</color>
     <color name="beer_card_background">#FFF5F5F5</color>
 </resources>
