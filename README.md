@@ -41,3 +41,8 @@ A small demo application that allows the user to browse a list of beers and to s
 The application is based on MVI architecture, fetching data from the network via repository pattern.
 
 ![Architecture](media/BeersTestArchitecture.png)
+
+## Punk API
+
+The application uses the [Punk API](https://punkapi.com) to load the list of beers.
+
