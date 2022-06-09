@@ -20,7 +20,7 @@ object Versions {
 
 object BuildVersions {
     const val AGP = "7.2.1"
-    const val KOTLIN = "1.6.21"
+    const val KOTLIN = "1.7.0"
     const val KTLINT_GRADLE = "10.3.0"
 }
 
