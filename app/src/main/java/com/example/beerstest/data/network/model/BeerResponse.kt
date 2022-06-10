@@ -1,12 +1,14 @@
 package com.example.beerstest.data.network.model
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
 
+@JsonClass(generateAdapter = true)
 data class BeerResponse(
-    @SerializedName("id") val id: Int,
-    @SerializedName("name") val name: String,
-    @SerializedName("tagline") val tagline: String,
-    @SerializedName("description") val description: String,
-    @SerializedName("image_url") val imageUrl: String?,
-    @SerializedName("first_brewed") val firstBrewed: String
+    @Json(name = "id") val id: Int,
+    @Json(name = "name") val name: String,
+    @Json(name = "tagline") val tagline: String,
+    @Json(name = "description") val description: String,
+    @Json(name = "image_url") val imageUrl: String?,
+    @Json(name = "first_brewed") val firstBrewed: String
 )

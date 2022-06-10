@@ -71,8 +71,12 @@ dependencies {
 
     // Retrofit
     implementation(Libs.RETROFIT)
-    implementation(Libs.RETROFIT_GSON)
+    implementation(Libs.RETROFIT_MOSHI)
     implementation(Libs.OK_HTTP_LOGGING)
+
+    // Moshi
+    implementation(Libs.MOSHI)
+    kapt(Libs.MOSHI_CODEGEN)
 
     // Timber
     implementation(Libs.TIMBER)

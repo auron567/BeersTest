@@ -30,6 +30,7 @@ A small demo application that allows the user to browse a list of beers and to s
   - [Navigation](https://developer.android.com/guide/navigation) - Handle everything needed for in-app navigation.
   - [Hilt](https://developer.android.com/training/dependency-injection/hilt-android) - Dependency Injection library for Android that reduces the boilerplate of doing manual DI.
 - [Retrofit](https://square.github.io/retrofit/) - A type-safe HTTP client.
+- [Moshi](https://github.com/square/moshi) - A modern JSON library for Kotlin and Java.
 - [Coil](https://coil-kt.github.io/coil/) - An image loading and caching library.
 - [Timber](https://github.com/JakeWharton/timber) - A logger with a small, extensible API.
 - [MockK](https://mockk.io/) - Mocking library for Kotlin.
