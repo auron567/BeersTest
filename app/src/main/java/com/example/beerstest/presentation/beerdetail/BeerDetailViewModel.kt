@@ -1,38 +1,22 @@
 package com.example.beerstest.presentation.beerdetail
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.SavedStateHandle
 import com.example.beerstest.core.base.BaseViewModel
 import com.example.beerstest.domain.model.BeerEntity
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class BeerDetailViewModel @AssistedInject constructor(
-    @Assisted private val beer: BeerEntity
+@HiltViewModel
+class BeerDetailViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle
 ) : BaseViewModel<BeerDetailContract.Event, BeerDetailContract.State, BeerDetailContract.Effect>() {
 
-    @AssistedFactory
-    interface Factory {
-        fun create(beer: BeerEntity): BeerDetailViewModel
-    }
-
-    companion object {
-        @Suppress("UNCHECKED_CAST")
-        fun provideFactory(
-            assistedFactory: Factory,
-            beer: BeerEntity
-        ): ViewModelProvider.Factory = object : ViewModelProvider.Factory {
-            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                return assistedFactory.create(beer) as T
-            }
-        }
-    }
+    private val args = BeerDetailFragmentArgs.fromSavedStateHandle(savedStateHandle)
 
     override fun createInitialState() = BeerDetailContract.initState()
 
     init {
-        setBeer(beer)
+        setBeer(args.beer)
     }
 
     private fun setBeer(beer: BeerEntity) {

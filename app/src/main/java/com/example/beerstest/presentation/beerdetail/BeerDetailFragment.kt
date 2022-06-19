@@ -2,7 +2,6 @@ package com.example.beerstest.presentation.beerdetail
 
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import coil.load
 import com.example.beerstest.R
 import com.example.beerstest.core.base.BaseFragment
@@ -12,22 +11,14 @@ import com.example.beerstest.core.viewbinding.viewBinding
 import com.example.beerstest.databinding.FragmentBeerDetailBinding
 import com.example.beerstest.domain.model.BeerEntity
 import dagger.hilt.android.AndroidEntryPoint
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class BeerDetailFragment :
     BaseFragment<BeerDetailContract.Event, BeerDetailContract.State, BeerDetailContract.Effect>() {
 
-    @Inject
-    lateinit var viewModelAssistedFactory: BeerDetailViewModel.Factory
-
-    private val args: BeerDetailFragmentArgs by navArgs()
-
     override val binding by viewBinding(FragmentBeerDetailBinding::inflate)
 
-    override val viewModel: BeerDetailViewModel by viewModels {
-        BeerDetailViewModel.provideFactory(viewModelAssistedFactory, args.beer)
-    }
+    override val viewModel by viewModels<BeerDetailViewModel>()
 
     override fun setupUi() {
         setupToolbar()
