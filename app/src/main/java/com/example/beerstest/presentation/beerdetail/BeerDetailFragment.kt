@@ -31,6 +31,7 @@ class BeerDetailFragment :
 
     override fun setupUi() {
         setupToolbar()
+        setupListeners()
     }
 
     private fun setupToolbar() {
@@ -48,6 +49,12 @@ class BeerDetailFragment :
             // Setup action bar
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowTitleEnabled(false)
+        }
+    }
+
+    private fun setupListeners() {
+        binding?.ivFavorite?.setOnClickListener {
+            viewModel.launchEvent(BeerDetailContract.Event.OnFavoriteClicked)
         }
     }
 

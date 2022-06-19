@@ -8,6 +8,7 @@ import com.example.beerstest.domain.model.BeerEntity
 class BeerDetailContract {
 
     sealed class Event : ViewEvent {
+        object OnFavoriteClicked : Event()
         object OnBackClicked : Event()
     }
 

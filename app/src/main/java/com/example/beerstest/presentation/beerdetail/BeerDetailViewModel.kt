@@ -43,8 +43,13 @@ class BeerDetailViewModel @AssistedInject constructor(
 
     override fun handleEvent(event: BeerDetailContract.Event) {
         when (event) {
+            is BeerDetailContract.Event.OnFavoriteClicked -> onFavoriteClicked()
             is BeerDetailContract.Event.OnBackClicked -> onBackClicked()
         }
+    }
+
+    private fun onFavoriteClicked() {
+        // TODO: check favorite
     }
 
     private fun onBackClicked() {

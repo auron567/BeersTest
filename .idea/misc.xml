@@ -8,12 +8,14 @@
         <entry key="app/src/main/res/drawable/background_rounded.xml" value="0.1025" />
         <entry key="app/src/main/res/drawable/ic_beers.xml" value="0.1025" />
         <entry key="app/src/main/res/drawable/ic_calendar.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_favorite.xml" value="0.104" />
+        <entry key="app/src/main/res/drawable/ic_favorite_border.xml" value="0.104" />
         <entry key="app/src/main/res/drawable/ic_group_1.xml" value="0.1025" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_search.xml" value="0.1025" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.12777777777777777" />
         <entry key="app/src/main/res/layout/bottom_sheet_beer_search.xml" value="0.14907407407407408" />
-        <entry key="app/src/main/res/layout/fragment_beer_detail.xml" value="0.11264367816091954" />
+        <entry key="app/src/main/res/layout/fragment_beer_detail.xml" value="0.15185185185185185" />
         <entry key="app/src/main/res/layout/fragment_beer_list.xml" value="0.1388888888888889" />
         <entry key="app/src/main/res/layout/fragment_splash.xml" value="0.14537037037037037" />
         <entry key="app/src/main/res/layout/item_beer.xml" value="0.1361111111111111" />

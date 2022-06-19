@@ -48,7 +48,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:paddingHorizontal="24dp"
-                    android:paddingVertical="32dp">
+                    android:paddingTop="24dp"
+                    android:paddingBottom="32dp">
+
+                    <!-- Favorite -->
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/iv_favorite"
+                        android:layout_width="@dimen/beer_card_favorite_size"
+                        android:layout_height="@dimen/beer_card_favorite_size"
+                        app:tint="@color/black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:src="@drawable/ic_favorite_border" />
 
                     <!-- Image -->
                     <androidx.appcompat.widget.AppCompatImageView
@@ -57,7 +68,7 @@
                         android:layout_height="200dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/iv_favorite"
                         tools:src="@tools:sample/avatars" />
 
                     <!-- Name & Year -->
