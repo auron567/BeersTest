@@ -28,7 +28,7 @@ class BeerApiToDomainMapperTest {
         )
 
         // Call mapper
-        val beerEntity = mapper.toDomain(beerResponse)
+        val beerEntity = mapper.map(beerResponse)
 
         // Assertion
         assertSoftly(beerEntity) {

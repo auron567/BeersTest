@@ -28,6 +28,8 @@ class BeerListViewModelTest {
     @MockK(relaxed = true)
     lateinit var getBeersUseCase: GetBeersUseCase
 
+    private lateinit var viewModel: BeerListViewModel
+
     @Before
     fun setup() {
         MockKAnnotations.init(this)
@@ -40,7 +42,7 @@ class BeerListViewModelTest {
         coEvery { getBeersUseCase.invoke(any(), any()) } returns mockBeers
 
         // Init view model
-        val viewModel = setupViewModel()
+        setupViewModel()
 
         // Assertion
         assertSoftly(viewModel.currentState) {
@@ -55,7 +57,7 @@ class BeerListViewModelTest {
         coEvery { getBeersUseCase.invoke(any(), any()) } returns emptyList()
 
         // Init view model
-        val viewModel = setupViewModel()
+        setupViewModel()
 
         // Assertion
         assertSoftly(viewModel.currentState) {
@@ -81,7 +83,7 @@ class BeerListViewModelTest {
     @Test
     fun `view model call use case with proper arguments when beer is searched`() = runTest {
         // Init view model
-        val viewModel = setupViewModel()
+        setupViewModel()
 
         // Call view model
         val beerName = "Buzz"
@@ -99,7 +101,7 @@ class BeerListViewModelTest {
     @Test
     fun `view model call use case with proper arguments when more beers are loaded`() = runTest {
         // Init view model
-        val viewModel = setupViewModel()
+        setupViewModel()
 
         // Call view model
         viewModel.launchEvent(BeerListContract.Event.OnLoadMoreBeers)
@@ -119,7 +121,7 @@ class BeerListViewModelTest {
         coEvery { getBeersUseCase.invoke(any(), any()) } throws NetworkError.ServiceUnavailable()
 
         // Init view model
-        val viewModel = setupViewModel()
+        setupViewModel()
 
         // Assertion
         viewModel.effect.test {
@@ -130,7 +132,7 @@ class BeerListViewModelTest {
     @Test
     fun `view model launch proper effect when search is clicked`() = runTest {
         // Init view model
-        val viewModel = setupViewModel()
+        setupViewModel()
 
         // Call view model
         viewModel.launchEvent(BeerListContract.Event.OnSearchClicked)
@@ -144,7 +146,7 @@ class BeerListViewModelTest {
     @Test
     fun `view model launch proper effect when beer is clicked`() = runTest {
         // Init view model
-        val viewModel = setupViewModel()
+        setupViewModel()
 
         // Call view model
         val beer = createBeerEntity()
@@ -156,5 +158,7 @@ class BeerListViewModelTest {
         }
     }
 
-    private fun setupViewModel() = BeerListViewModel(getBeersUseCase, coroutineTestRule.testDispatcherProvider)
+    private fun setupViewModel() {
+        viewModel = BeerListViewModel(getBeersUseCase, coroutineTestRule.testDispatcherProvider)
+    }
 }

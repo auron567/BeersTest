@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 class BeerRepositoryImpl @Inject constructor(
     private val beerService: BeerService,
-    private val beerMapper: BeerApiToDomainMapper
+    private val apiToDomainMapper: BeerApiToDomainMapper
 ) : BeerRepository {
 
     private var cachedData: MutableList<BeerEntity> = mutableListOf()
@@ -41,7 +41,7 @@ class BeerRepositoryImpl @Inject constructor(
         pageCount++
 
         // Get domain beers
-        val beers = beersApi?.map(beerMapper::toDomain).orEmpty()
+        val beers = beersApi?.map(apiToDomainMapper::map).orEmpty()
 
         // Add beers to current list
         return cachedData.apply {

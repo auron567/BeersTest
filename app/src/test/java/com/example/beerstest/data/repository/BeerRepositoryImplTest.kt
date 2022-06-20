@@ -26,14 +26,14 @@ class BeerRepositoryImplTest {
 
     @MockK lateinit var beerService: BeerService
 
-    @MockK lateinit var beerMapper: BeerApiToDomainMapper
+    @MockK lateinit var apiToDomainMapper: BeerApiToDomainMapper
 
     private lateinit var repository: BeerRepositoryImpl
 
     @Before
     fun setup() {
         MockKAnnotations.init(this)
-        repository = BeerRepositoryImpl(beerService, beerMapper)
+        repository = BeerRepositoryImpl(beerService, apiToDomainMapper)
     }
 
     @Test
@@ -53,8 +53,8 @@ class BeerRepositoryImplTest {
         coEvery { beerService.getBeers(any(), any()) } returns response
 
         // Stub mapper
-        every { beerMapper.toDomain(beerApiFirst) } returns beerDomainFirst
-        every { beerMapper.toDomain(beerApiSecond) } returns beerDomainSecond
+        every { apiToDomainMapper.map(beerApiFirst) } returns beerDomainFirst
+        every { apiToDomainMapper.map(beerApiSecond) } returns beerDomainSecond
 
         // Call repository
         val beers = repository.getBeers(

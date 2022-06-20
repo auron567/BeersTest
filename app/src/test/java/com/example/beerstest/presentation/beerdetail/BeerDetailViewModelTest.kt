@@ -1,6 +1,8 @@
 package com.example.beerstest.presentation.beerdetail
 
+import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
+import com.example.beerstest.domain.model.BeerEntity
 import com.example.beerstest.utils.CoroutineTestRule
 import com.example.beerstest.utils.createBeerEntity
 import io.kotest.matchers.shouldBe
@@ -14,11 +16,13 @@ class BeerDetailViewModelTest {
     @get:Rule
     val coroutineTestRule = CoroutineTestRule()
 
+    private lateinit var viewModel: BeerDetailViewModel
+
     @Test
     fun `view model set beer on init`() = runTest {
         // Init view model
         val beer = createBeerEntity()
-        val viewModel = BeerDetailViewModel(beer)
+        setupViewModel(beer)
 
         // Assertion
         viewModel.currentState.beer shouldBe beer
@@ -27,8 +31,7 @@ class BeerDetailViewModelTest {
     @Test
     fun `view model launch proper effect when back is clicked`() = runTest {
         // Init view model
-        val beer = createBeerEntity()
-        val viewModel = BeerDetailViewModel(beer)
+        setupViewModel(createBeerEntity())
 
         // Call view model
         viewModel.launchEvent(BeerDetailContract.Event.OnBackClicked)
@@ -37,5 +40,12 @@ class BeerDetailViewModelTest {
         viewModel.effect.test {
             awaitItem().shouldBeTypeOf<BeerDetailContract.Effect.Pop>()
         }
+    }
+
+    private fun setupViewModel(beer: BeerEntity) {
+        val savedStateHandle = SavedStateHandle().apply {
+            set("beer", beer)
+        }
+        viewModel = BeerDetailViewModel(savedStateHandle)
     }
 }
