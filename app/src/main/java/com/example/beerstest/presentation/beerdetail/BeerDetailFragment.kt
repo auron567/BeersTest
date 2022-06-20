@@ -1,5 +1,6 @@
 package com.example.beerstest.presentation.beerdetail
 
+import androidx.annotation.StringRes
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import coil.load
@@ -10,6 +11,7 @@ import com.example.beerstest.core.extensions.supportActionBar
 import com.example.beerstest.core.viewbinding.viewBinding
 import com.example.beerstest.databinding.FragmentBeerDetailBinding
 import com.example.beerstest.domain.model.BeerEntity
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -50,10 +52,10 @@ class BeerDetailFragment :
     }
 
     override fun handleState(state: BeerDetailContract.State) {
-        renderBeer(state.beer)
+        renderBeer(state.currentBeer, state.isFavorite)
     }
 
-    private fun renderBeer(beer: BeerEntity) {
+    private fun renderBeer(beer: BeerEntity, isFavorite: Boolean) {
         binding?.apply {
             // Image
             ivBeer.load(beer.imageUrl) {
@@ -69,12 +71,25 @@ class BeerDetailFragment :
 
             // Description
             tvDescription.text = beer.description
+
+            // Favorite
+            ivFavorite.setImageResource(
+                if (isFavorite) R.drawable.ic_favorite else R.drawable.ic_favorite_border
+            )
         }
     }
 
     override fun handleEffect(effect: BeerDetailContract.Effect) {
         when (effect) {
+            is BeerDetailContract.Effect.FavoriteSaved -> showSnackbar(R.string.favorite_saved)
+            is BeerDetailContract.Effect.FavoriteRemoved -> showSnackbar(R.string.favorite_removed)
             is BeerDetailContract.Effect.Pop -> popStack()
+        }
+    }
+
+    private fun showSnackbar(@StringRes message: Int) {
+        binding?.let {
+            Snackbar.make(it.root, message, Snackbar.LENGTH_SHORT).show()
         }
     }
 

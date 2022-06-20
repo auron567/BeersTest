@@ -13,16 +13,20 @@ class BeerDetailContract {
     }
 
     sealed class Effect : ViewEffect {
+        object FavoriteSaved : Effect()
+        object FavoriteRemoved : Effect()
         object Pop : Effect()
     }
 
     data class State(
-        val beer: BeerEntity
+        val currentBeer: BeerEntity,
+        val isFavorite: Boolean
     ) : ViewState
 
     companion object {
         fun initState() = State(
-            beer = BeerEntity()
+            currentBeer = BeerEntity(),
+            isFavorite = false
         )
     }
 }

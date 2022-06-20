@@ -11,5 +11,8 @@
     <string name="template_name">"%1$s (%2$s)"</string>
     <string name="template_slogan">“%s”</string>
 
+    <string name="favorite_saved">Favorite saved!</string>
+    <string name="favorite_removed">Favorite removed!</string>
+
     <string name="content_descriptor_search">Search</string>
 </resources>

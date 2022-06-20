@@ -3,20 +3,33 @@ package com.example.beerstest.presentation.beerdetail
 import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
 import com.example.beerstest.domain.model.BeerEntity
-import com.example.beerstest.utils.CoroutineTestRule
+import com.example.beerstest.domain.usecase.IsFavoriteUseCase
+import com.example.beerstest.domain.usecase.RemoveFavoriteUseCase
+import com.example.beerstest.domain.usecase.SaveFavoriteUseCase
+import com.example.beerstest.utils.ViewModelTest
 import com.example.beerstest.utils.createBeerEntity
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeTypeOf
+import io.mockk.MockKAnnotations
+import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.test.runTest
-import org.junit.Rule
+import org.junit.Before
 import org.junit.Test
 
-class BeerDetailViewModelTest {
+class BeerDetailViewModelTest : ViewModelTest() {
 
-    @get:Rule
-    val coroutineTestRule = CoroutineTestRule()
+    @MockK(relaxed = true) lateinit var isFavoriteUseCase: IsFavoriteUseCase
+
+    @MockK lateinit var saveFavoriteUseCase: SaveFavoriteUseCase
+
+    @MockK lateinit var removeFavoriteUseCase: RemoveFavoriteUseCase
 
     private lateinit var viewModel: BeerDetailViewModel
+
+    @Before
+    fun setup() {
+        MockKAnnotations.init(this)
+    }
 
     @Test
     fun `view model set beer on init`() = runTest {
@@ -25,7 +38,7 @@ class BeerDetailViewModelTest {
         setupViewModel(beer)
 
         // Assertion
-        viewModel.currentState.beer shouldBe beer
+        viewModel.currentState.currentBeer shouldBe beer
     }
 
     @Test
@@ -46,6 +59,11 @@ class BeerDetailViewModelTest {
         val savedStateHandle = SavedStateHandle().apply {
             set("beer", beer)
         }
-        viewModel = BeerDetailViewModel(savedStateHandle)
+        viewModel = BeerDetailViewModel(
+            isFavoriteUseCase,
+            saveFavoriteUseCase,
+            removeFavoriteUseCase,
+            savedStateHandle
+        )
     }
 }

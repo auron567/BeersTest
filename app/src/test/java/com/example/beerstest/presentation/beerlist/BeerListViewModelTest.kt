@@ -3,7 +3,7 @@ package com.example.beerstest.presentation.beerlist
 import app.cash.turbine.test
 import com.example.beerstest.core.exceptions.NetworkError
 import com.example.beerstest.domain.usecase.GetBeersUseCase
-import com.example.beerstest.utils.CoroutineTestRule
+import com.example.beerstest.utils.ViewModelTest
 import com.example.beerstest.utils.createBeerEntity
 import io.kotest.assertions.assertSoftly
 import io.kotest.matchers.booleans.shouldBeFalse
@@ -17,16 +17,11 @@ import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 
-class BeerListViewModelTest {
+class BeerListViewModelTest : ViewModelTest() {
 
-    @get:Rule
-    val coroutineTestRule = CoroutineTestRule()
-
-    @MockK(relaxed = true)
-    lateinit var getBeersUseCase: GetBeersUseCase
+    @MockK(relaxed = true) lateinit var getBeersUseCase: GetBeersUseCase
 
     private lateinit var viewModel: BeerListViewModel
 

@@ -1,7 +1,7 @@
 package com.example.beerstest.presentation.beersearch
 
 import app.cash.turbine.test
-import com.example.beerstest.utils.CoroutineTestRule
+import com.example.beerstest.utils.ViewModelTest
 import io.kotest.assertions.assertSoftly
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
@@ -10,13 +10,9 @@ import io.kotest.matchers.string.shouldBeEmpty
 import io.kotest.matchers.types.shouldBeTypeOf
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 
-class BeerSearchViewModelTest {
-
-    @get:Rule
-    val coroutineTestRule = CoroutineTestRule()
+class BeerSearchViewModelTest : ViewModelTest() {
 
     private lateinit var viewModel: BeerSearchViewModel
 
