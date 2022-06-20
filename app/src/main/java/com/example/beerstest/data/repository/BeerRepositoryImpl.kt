@@ -1,16 +1,21 @@
 package com.example.beerstest.data.repository
 
 import com.example.beerstest.core.exceptions.toNetworkError
+import com.example.beerstest.data.database.BeerDao
 import com.example.beerstest.data.network.mapper.BeerApiToDomainMapper
 import com.example.beerstest.data.network.model.BeerResponse
 import com.example.beerstest.data.network.service.BeerService
+import com.example.beerstest.domain.mapper.BeerDomainToDbMapper
 import com.example.beerstest.domain.model.BeerEntity
 import com.example.beerstest.domain.repository.BeerRepository
 import javax.inject.Inject
+import kotlinx.coroutines.flow.Flow
 
 class BeerRepositoryImpl @Inject constructor(
     private val beerService: BeerService,
-    private val apiToDomainMapper: BeerApiToDomainMapper
+    private val beerDao: BeerDao,
+    private val apiToDomainMapper: BeerApiToDomainMapper,
+    private val domainToDbMapper: BeerDomainToDbMapper
 ) : BeerRepository {
 
     private var cachedData: MutableList<BeerEntity> = mutableListOf()
@@ -48,6 +53,17 @@ class BeerRepositoryImpl @Inject constructor(
             addAll(beers)
         }
     }
+
+    override suspend fun saveFavorite(beerEntity: BeerEntity) {
+        val beerDb = domainToDbMapper.map(beerEntity)
+        beerDao.insertBeer(beerDb)
+    }
+
+    override suspend fun removeFavorite(id: Int) {
+        beerDao.deleteBeer(id)
+    }
+
+    override fun isFavorite(id: Int): Flow<Boolean> = beerDao.isBeerExists(id)
 }
 
 private const val FIRST_PAGE = 1

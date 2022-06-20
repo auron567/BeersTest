@@ -2,9 +2,11 @@ package com.example.beerstest.data.repository
 
 import com.example.beerstest.core.exceptions.NetworkError
 import com.example.beerstest.core.extensions.fromJsonToResponseBody
+import com.example.beerstest.data.database.BeerDao
 import com.example.beerstest.data.network.mapper.BeerApiToDomainMapper
 import com.example.beerstest.data.network.model.BeerResponse
 import com.example.beerstest.data.network.service.BeerService
+import com.example.beerstest.domain.mapper.BeerDomainToDbMapper
 import com.example.beerstest.utils.JSON_SERVICE_UNAVAILABLE
 import com.example.beerstest.utils.createBeerEntity
 import com.example.beerstest.utils.createBeerResponse
@@ -26,14 +28,18 @@ class BeerRepositoryImplTest {
 
     @MockK lateinit var beerService: BeerService
 
+    @MockK lateinit var beerDao: BeerDao
+
     @MockK lateinit var apiToDomainMapper: BeerApiToDomainMapper
+
+    @MockK lateinit var domainToDbMapper: BeerDomainToDbMapper
 
     private lateinit var repository: BeerRepositoryImpl
 
     @Before
     fun setup() {
         MockKAnnotations.init(this)
-        repository = BeerRepositoryImpl(beerService, apiToDomainMapper)
+        repository = BeerRepositoryImpl(beerService, beerDao, apiToDomainMapper, domainToDbMapper)
     }
 
     @Test
