@@ -19,8 +19,13 @@ android {
         versionName = App.VERSION_NAME
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
+        // API
         buildConfigField("String", "API_BASE_URL", "\"https://api.punkapi.com/\"")
         buildConfigField("String", "API_VERSION", "\"v2/\"")
+
+        // Database
+        buildConfigField("String", "DATABASE_NAME", "\"beer-db\"")
+        buildConfigField("int", "DATABASE_VERSION", "1")
     }
     buildTypes {
         getByName("release") {
@@ -64,6 +69,11 @@ dependencies {
     // Navigation
     implementation(Libs.NAVIGATION_KTX)
     implementation(Libs.NAVIGATION_UI_KTX)
+
+    // Room
+    implementation(Libs.ROOM_RUNTIME)
+    implementation(Libs.ROOM_KTX)
+    kapt(Libs.ROOM_COMPILER)
 
     // Hilt
     implementation(Libs.HILT_ANDROID)
