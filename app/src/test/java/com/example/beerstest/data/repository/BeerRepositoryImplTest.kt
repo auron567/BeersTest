@@ -8,6 +8,7 @@ import com.example.beerstest.data.mapper.BeerDomainToDbMapper
 import com.example.beerstest.data.network.BeerService
 import com.example.beerstest.data.network.model.BeerResponse
 import com.example.beerstest.utils.JSON_SERVICE_UNAVAILABLE
+import com.example.beerstest.utils.createBeerDb
 import com.example.beerstest.utils.createBeerEntity
 import com.example.beerstest.utils.createBeerResponse
 import io.kotest.assertions.throwables.shouldThrow
@@ -26,13 +27,13 @@ import retrofit2.Response
 
 class BeerRepositoryImplTest {
 
-    @MockK lateinit var beerService: BeerService
+    @MockK(relaxed = true) lateinit var beerService: BeerService
 
-    @MockK lateinit var beerDao: BeerDao
+    @MockK(relaxed = true) lateinit var beerDao: BeerDao
 
-    @MockK lateinit var apiToDomainMapper: BeerApiToDomainMapper
+    @MockK(relaxed = true) lateinit var apiToDomainMapper: BeerApiToDomainMapper
 
-    @MockK lateinit var domainToDbMapper: BeerDomainToDbMapper
+    @MockK(relaxed = true) lateinit var domainToDbMapper: BeerDomainToDbMapper
 
     private lateinit var repository: BeerRepositoryImpl
 
@@ -186,6 +187,48 @@ class BeerRepositoryImplTest {
                     page = index
                 )
             }
+        }
+    }
+
+    @Test
+    fun `repository call dao with proper beer when save favorite`() = runTest {
+        // Models
+        val beerDomain = createBeerEntity(name = "Trashy Blonde")
+        val beerDb = createBeerDb(name = "Trashy Blonde")
+
+        // Stub mapper
+        every { domainToDbMapper.map(beerDomain) } returns beerDb
+
+        // Call repository
+        repository.saveFavorite(beerDomain)
+
+        // Verify
+        coVerify {
+            beerDao.insertBeer(beerDb)
+        }
+    }
+
+    @Test
+    fun `repository call dao with proper id when remove favorite`() = runTest {
+        // Call repository
+        val id = 6
+        repository.removeFavorite(id)
+
+        // Verify
+        coVerify {
+            beerDao.deleteBeer(id)
+        }
+    }
+
+    @Test
+    fun `repository call dao with proper id when check favorite`() = runTest {
+        // Call repository
+        val id = 12
+        repository.isFavorite(id)
+
+        // Verify
+        coVerify {
+            beerDao.isBeerExists(id)
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.beerstest.utils
 
+import com.example.beerstest.data.database.model.BeerDb
 import com.example.beerstest.data.network.model.BeerResponse
 import com.example.beerstest.domain.model.BeerEntity
 
@@ -33,6 +34,14 @@ fun createBeerEntity(
     description = description,
     imageUrl = imageUrl,
     productionYear = productionYear
+)
+
+fun createBeerDb(
+    id: Int = ID,
+    name: String = NAME
+) = BeerDb(
+    id = id,
+    name = name
 )
 
 private const val ID = 1
