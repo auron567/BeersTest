@@ -1,4 +1,4 @@
-package com.example.beerstest.data.network.service
+package com.example.beerstest.data.network
 
 import com.example.beerstest.data.network.model.BeerResponse
 import retrofit2.Response

@@ -1,7 +1,7 @@
 package com.example.beerstest.di
 
 import com.example.beerstest.BuildConfig
-import com.example.beerstest.data.network.service.BeerService
+import com.example.beerstest.data.network.BeerService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

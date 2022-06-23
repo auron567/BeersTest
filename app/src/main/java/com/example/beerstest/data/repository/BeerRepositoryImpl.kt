@@ -2,10 +2,10 @@ package com.example.beerstest.data.repository
 
 import com.example.beerstest.core.exceptions.toNetworkError
 import com.example.beerstest.data.database.BeerDao
-import com.example.beerstest.data.network.mapper.BeerApiToDomainMapper
+import com.example.beerstest.data.mapper.BeerApiToDomainMapper
+import com.example.beerstest.data.mapper.BeerDomainToDbMapper
+import com.example.beerstest.data.network.BeerService
 import com.example.beerstest.data.network.model.BeerResponse
-import com.example.beerstest.data.network.service.BeerService
-import com.example.beerstest.domain.mapper.BeerDomainToDbMapper
 import com.example.beerstest.domain.model.BeerEntity
 import com.example.beerstest.domain.repository.BeerRepository
 import javax.inject.Inject

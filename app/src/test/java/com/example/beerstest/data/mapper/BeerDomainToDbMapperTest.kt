@@ -1,4 +1,4 @@
-package com.example.beerstest.domain.mapper
+package com.example.beerstest.data.mapper
 
 import com.example.beerstest.utils.createBeerEntity
 import io.kotest.assertions.assertSoftly

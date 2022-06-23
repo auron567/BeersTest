@@ -1,4 +1,4 @@
-package com.example.beerstest.data.network.mapper
+package com.example.beerstest.data.mapper
 
 import com.example.beerstest.core.mapper.Mapper
 import com.example.beerstest.data.network.model.BeerResponse
